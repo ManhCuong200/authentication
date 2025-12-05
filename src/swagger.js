@@ -12,12 +12,20 @@ const options = {
       version: "1.0.0",
       description: "API documentation for Authentication Service",
     },
+
     servers: [
       {
         url: process.env.API_URL,
-        description: "Authentication Service"
+        description: "Authentication Service",
       },
     ],
+
+    security: [
+      {
+        BearerAuth: [],
+      },
+    ],
+
     components: {
       securitySchemes: {
         BearerAuth: {
@@ -26,6 +34,7 @@ const options = {
           bearerFormat: "JWT",
         },
       },
+
       schemas: {
         User: {
           type: "object",
@@ -36,6 +45,7 @@ const options = {
             role: { type: "string" },
           },
         },
+
         RegisterRequest: {
           type: "object",
           required: ["name", "email", "password"],
@@ -45,6 +55,7 @@ const options = {
             password: { type: "string" },
           },
         },
+
         LoginRequest: {
           type: "object",
           required: ["email", "password"],
@@ -53,6 +64,7 @@ const options = {
             password: { type: "string" },
           },
         },
+
         ErrorResponse: {
           type: "object",
           properties: {
@@ -65,12 +77,12 @@ const options = {
     },
   },
 
-  apis: ["./src/routes/*.js"], 
+  apis: ["./src/routes/*.js"],
 };
 
 export const swaggerSpec = swaggerJSDoc(options);
 
 export const swaggerDocs = (app) => {
-  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-  console.log("📘Swagger ready at http://localhost:3001/api-docs");
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, { explorer: true }));
+  console.log("📘 Swagger ready at http://localhost:3001/api-docs");
 };

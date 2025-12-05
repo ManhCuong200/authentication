@@ -3,8 +3,8 @@ POST http://localhost:3001/api/auth/register
 Content-Type: application/json
 
 {
-  "name": "user",
-  "email": "user1@gmail.com",
+  "name": "user1",
+  "email": "user2@gmail.com",
   "password": "123456"
 }
 
@@ -13,18 +13,18 @@ POST http://localhost:3001/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "user1@gmail.com",
+  "email": "user2@gmail.com",
   "password": "123456"
 }
 
 ### GET CURRENT USER
 GET http://localhost:3001/api/auth/me
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzJkOTA0Y2YwY2I5Y2I5NWU2OWRlMCIsImlhdCI6MTc2NDk0MjM3MiwiZXhwIjoxNzY0OTQzMjcyfQ.acBvZCa66DaLBgBs4BxfivxQvlVUu5idYH_sMFWbWQk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzJlYTZiZDkzMmI4ZGZhNzAwZDU1NiIsImlhdCI6MTc2NDk0NDU2MSwiZXhwIjoxNzY0OTQ1NDYxfQ.vZKTMmP8M9PeIRPcx8Qhnt5qEO9RP7w-2RDwVp49gqw
 
 ### REFRESH TOKEN
 POST http://localhost:3001/api/auth/refresh-token
 
 ### LOGOUT
 POST http://localhost:3001/api/auth/logout
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzJkOTA0Y2YwY2I5Y2I5NWU2OWRlMCIsImlhdCI6MTc2NDk0MjY1NCwiZXhwIjoxNzY0OTQzNTU0fQ.yOcmXSwp7otuMOBJ5JZjuYG0Zbybz5TIy5o2-MZ5Tmc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzJlYTZiZDkzMmI4ZGZhNzAwZDU1NiIsImlhdCI6MTc2NDk0NDU3NCwiZXhwIjoxNzY0OTQ1NDc0fQ.Xtip3c_He6CHBnYJtKXM6TxvNod4vUUkK8KFrFsOJ7U

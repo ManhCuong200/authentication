@@ -13,16 +13,14 @@ const generateTokens = (userId) => {
   return { accessToken, refreshToken };
 };
 
-export const registerUser = async ({ email, password, name }) => {
+export const registerUser = async ({ email, password, name, role }) => {
   const userExists = await User.findOne({ email });
   if (userExists) throw new Error("EMAIL_EXIST");
 
-  const newUser = await User.create({ email, password, name });
+  const newUser = await User.create({ email, password, name, role });
 
-  // Tạo token sau khi đăng ký
   const tokens = generateTokens(newUser._id);
 
-  // Lưu refresh token vào DB
   await User.findByIdAndUpdate(newUser._id, {
     refreshToken: tokens.refreshToken,
   });
@@ -39,7 +37,7 @@ export const registerUser = async ({ email, password, name }) => {
 };
 
 export const loginUser = async ({ email, password }) => {
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).select("+password");
 
   if (!user) throw new Error("INVALID_CREDENTIALS");
 
@@ -73,13 +71,11 @@ export const refreshTokenProcess = async (refreshTokenFromCookie) => {
     throw new Error("REFRESH_TOKEN_INVALID");
   }
 
-  // Lấy refreshToken từ DB
   const user = await User.findById(decoded.id).select("+refreshToken");
 
   if (!user || user.refreshToken !== refreshTokenFromCookie)
     throw new Error("REFRESH_TOKEN_NOT_MATCH");
 
-  // Tạo Access Token mới
   const newAccessToken = jwt.sign(
     { id: user._id },
     process.env.JWT_ACCESS_SECRET,
