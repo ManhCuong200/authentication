@@ -83,6 +83,9 @@ const options = {
 export const swaggerSpec = swaggerJSDoc(options);
 
 export const swaggerDocs = (app) => {
-  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, { explorer: true }));
-  console.log("📘 Swagger ready at http://localhost:3001/api-docs");
+  app.use("/api-docs", swaggerUi.serve);
+
+  app.get("/api-docs", swaggerUi.setup(swaggerSpec, { explorer: true }));
+
+  console.log("📘http://localhost:3001/api-docs");
 };

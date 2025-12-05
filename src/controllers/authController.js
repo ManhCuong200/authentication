@@ -10,7 +10,7 @@ const COOKIE_OPTIONS = {
 
 export const register = async (req, res) => {
   try {
-    const result = await authService.registerUser(req.body);
+    const result = await authService.registerUser(req.body);    
     return successResponse(res, "Đăng ký thành công", result, 201);
   } catch (err) {
     if (err.message === "EMAIL_EXIST") {
