@@ -8,7 +8,7 @@ import cors from "cors";
 dotenv.config();
 console.log("ACCESS_SECRET:", process.env.JWT_ACCESS_SECRET);
 const app = express();
-
+app.set("trust proxy", 1);
 connectDB();
 swaggerDocs(app);
 app.use(cors({
