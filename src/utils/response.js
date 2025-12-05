@@ -1,19 +1,29 @@
 // src/utils/response.js
 
-// Dùng khi xử lý thành công (Mặc định status 200)
-export const successResponse = (res, message = "Operation successful", data = null) => {
-  return res.status(200).json({
+// 🟢 Success response — CHO PHÉP custom statusCode
+export const successResponse = (
+  res,
+  message = "Operation successful",
+  data = null,
+  statusCode = 200
+) => {
+  return res.status(statusCode).json({
     success: true,
     message,
     data,
   });
 };
 
-// Dùng khi có lỗi (Mặc định status 400 - Bad Request)
-export const errorResponse = (res, message = "Something went wrong", status = 400, errorCode = "INTERNAL_SERVER_ERROR") => {
-  return res.status(status).json({
+// 🔴 Error response — CHO PHÉP custom statusCode
+export const errorResponse = (
+  res,
+  message = "Something went wrong",
+  statusCode = 400,
+  errorCode = "INTERNAL_SERVER_ERROR"
+) => {
+  return res.status(statusCode).json({
     success: false,
     message,
-    errorCode
+    errorCode,
   });
 };
