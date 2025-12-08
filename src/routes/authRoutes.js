@@ -5,8 +5,11 @@ import {
   refresh,
   getMe,
   logout,
+  deleteUser,
+  updateUser,
+  getUsers,
 } from "../controllers/authController.js";
-import { protect } from "../middleware/authMiddleware.js";
+import { protect, authorize } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -101,4 +104,51 @@ router.get("/me", protect, getMe);
  */
 router.post("/logout", protect, logout);
 
+router.delete("/delete/:id", protect, authorize('admin'), deleteUser);
+/**
+ * @swagger
+ * /delete:
+ *   delete:
+ *     summary: Delete user account
+ *     tags: [Auth]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User deleted successfully
+ *       401:
+ *         description: Unauthorized
+ */
+
+router.put("/update/:id", protect, updateUser);
+/**
+ * @swagger
+ * /update:
+ *   put:
+ *     summary: Update user account
+ *     tags: [Auth]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User updated successfully
+ *       401:
+ *         description: Unauthorized
+ */
+
+router.get("/getUsers", protect, authorize('admin'), getUsers);
+/**
+ * @swagger
+ * /getUsers:
+ *   get:
+ *     summary: Get all users
+ *     tags: [Auth]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Users retrieved successfully
+ *       401:
+ *         description: Unauthorized
+ */
 export default router;

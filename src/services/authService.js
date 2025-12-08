@@ -97,3 +97,57 @@ export const getMe = async (user) => {
 export const logoutUser = async (userId) => {
   await User.findByIdAndUpdate(userId, { refreshToken: null });
 };
+
+export const deleteUser = async (userId) => {
+  await User.findByIdAndDelete(userId);
+};
+
+// export const updateUser = async (userId, data) => {
+//   const user = await User.findById(userId);
+// console.log("user SERRVICE: ", user)
+//   if (!user) throw new Error("USER_NOT_FOUND");
+//   console.log(user._id.toString())
+//   console.log("data",data._id.toString())
+//   // check this user is Authorization
+//   // if(user._id.toString() !== id) throw new Error("NOT_AUTHORIZATION");
+  
+//   if (data._id && data._id.toString() !== userId) {
+//   throw new Error("NOT_AUTHORIZATION");
+// }
+
+//   // if (password) {
+//   //   user.password = password;
+//   // }
+//   user._id = data._id || user._id;
+//   user.name = data.name || user.name;
+//   user.role = data.role || user.role;
+
+//   await user.save();
+
+//   return {
+//     id: user._id,
+//     name: user.name,
+//     role: user.role,
+//   };
+// };
+
+export const updateUser = async (targetId, data, actingId, actingRole) => {
+  const user = await User.findById(targetId);
+  if (!user) throw new Error("USER_NOT_FOUND");
+console.log(targetId)
+  // User thường chỉ được sửa chính mình
+  if (actingRole !== "admin" && actingId !== targetId) {
+    throw new Error("NOT_AUTHORIZATION");
+  }
+
+  if (data.name) user.name = data.name;
+  if (data.role && actingRole === "admin") user.role = data.role;
+
+  await user.save();
+
+  return {
+    id: user._id,
+    name: user.name,
+    role: user.role,
+  };
+};

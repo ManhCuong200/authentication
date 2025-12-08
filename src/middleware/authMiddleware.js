@@ -23,9 +23,8 @@ export const protect = async (req, res, next) => {
     if (!user) {
       return errorResponse(res, "Token không hợp lệ", 401, "TOKEN_INVALID");
     }
-
     req.user = user;
-    next(); // Quan trọng!
+    next(); 
   } catch (err) {
     // Kiểm tra lỗi hết hạn token
     if (err.name === "TokenExpiredError") {
@@ -34,4 +33,19 @@ export const protect = async (req, res, next) => {
 
     return errorResponse(res, "Token không hợp lệ", 401, "TOKEN_INVALID");
   }
+};
+
+export const authorize = (...roles) => {
+  return (req, res, next) => {
+    // req.user đã có được từ middleware 'protect' chạy trước đó
+    if (!roles.includes(req.user.role)) {
+      return errorResponse(
+        res, 
+        'Bạn không có quyền thực hiện hành động này', 
+        403, 
+        'FORBIDDEN'
+      );
+    }
+    next();
+  };
 };

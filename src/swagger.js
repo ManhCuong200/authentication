@@ -8,15 +8,15 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Authentication API",
+      title: "Backend API Documentation",
       version: "1.0.0",
-      description: "API documentation for Authentication Service",
+      description: "Authentication + Project Management APIs",
     },
 
     servers: [
       {
         url: process.env.API_URL,
-        description: "Authentication Service",
+        description: "Backend Server",
       },
     ],
 
@@ -65,6 +65,16 @@ const options = {
           },
         },
 
+        Project: {
+          type: "object",
+          properties: {
+            title: { type: "string" },
+            description: { type: "string" },
+            status: { type: "string" },
+            createdBy: { type: "string" },
+          },
+        },
+
         ErrorResponse: {
           type: "object",
           properties: {
@@ -77,7 +87,7 @@ const options = {
     },
   },
 
-  apis: ["./src/routes/*.js"],
+  apis: ["src/routes/*.js"],
 };
 
 export const swaggerSpec = swaggerJSDoc(options);

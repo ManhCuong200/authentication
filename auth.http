@@ -3,29 +3,75 @@ POST http://localhost:3001/api/auth/register
 Content-Type: application/json
 
 {
-  "name": "user2",
-  "email": "user3@gmail.com",
-  "password": "123456",
-  "role": "user"
+"name": "cuongdepchai",
+"email": "cuongdepchai14@gmail.com",
+"password": "123456",
+"role": "user"
 }
-
 ### LOGIN
 POST http://localhost:3001/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "user2@gmail.com",
-  "password": "123456"
+"email": "cuongdepchai14@gmail.com",
+"password": "123456"
 }
 
 ### GET CURRENT USER
 GET http://localhost:3001/api/auth/me
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzJlYTZiZDkzMmI4ZGZhNzAwZDU1NiIsImlhdCI6MTc2NDk0NDU2MSwiZXhwIjoxNzY0OTQ1NDYxfQ.vZKTMmP8M9PeIRPcx8Qhnt5qEO9RP7w-2RDwVp49gqw
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzZlZjNhZWE4NDNiMzY1NjQ5ODQ3MyIsImlhdCI6MTc2NTIwNzg5OSwiZXhwIjoxNzY1MjA4Nzk5fQ.QiPF0_4skXLdB_LN3c2Cdi7W3bdR4_PbEw5uA3S_I28
 ### REFRESH TOKEN
 POST http://localhost:3001/api/auth/refresh-token
 
 ### LOGOUT
 POST http://localhost:3001/api/auth/logout
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzJlYTZiZDkzMmI4ZGZhNzAwZDU1NiIsImlhdCI6MTc2NDk0NDU3NCwiZXhwIjoxNzY0OTQ1NDc0fQ.Xtip3c_He6CHBnYJtKXM6TxvNod4vUUkK8KFrFsOJ7U
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzQxYzg1ZDAyOTZjYTc4YjM2ODk5NiIsImlhdCI6MTc2NTAyMjg2NCwiZXhwIjoxNzY1MDIzNzY0fQ.bTItReOn4wV2h20UlQ0jhyAUtJxxQ5zGjFrySs40aLQ
+
+### DELETE USER
+DELETE http://localhost:3001/api/auth/delete/6934295918c30f1786066a20
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzQxZDVhNjMzOThjNjE1YWJlNTQ1MiIsImlhdCI6MTc2NTAyMzA2NiwiZXhwIjoxNzY1MDIzOTY2fQ.UDBTJru-Z03-7IROoN1LHOpTR7JIZbB2FlfrvD3TrEM
+
+### UPDATE USER
+PUT http://localhost:3001/api/auth/update/6934295918c30f1786066a20
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzQyYTBjMThjMzBmMTc4NjA2NmEzNSIsImlhdCI6MTc2NTAyNjMxNiwiZXhwIjoxNzY1MDI3MjE2fQ.nxbqNKWS0XfF-Ww6USNYow6KaWW5_3eHWzsiGEBfCdY
+Content-Type: application/json
+
+{
+  "name": "cuongchoDFGHJKL",
+  "password": "123456",
+  "role": "user"
+}
+### CREATE PROJECT
+POST http://localhost:3001/api/project
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzcwYjEwNmUyODYyZTk4MjNkOWI4NCIsImlhdCI6MTc2NTIxNTAwMCwiZXhwIjoxNzY1MjE1OTAwfQ.ng_tKqKImP8yUcNTqbKuoV3lVZGCRNydia6X5tzmB5Y
+
+{
+"title": "Website UI Design",
+"description": "Thiết kế UX/UI website bán hàng",
+"status": "pending",
+"progress": 0,
+"owner_id": "69370ae26e2862e9823d9b7d"
+}
+
+### UPDATE PROJECT
+PUT http://localhost:3001/api/project/693419ddd0296ca78b36897c
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzZlZTIxZWE4NDNiMzY1NjQ5ODQ1NCIsImlhdCI6MTc2NTIwNzYxMiwiZXhwIjoxNzY1MjA4NTEyfQ.LfnTQ0pLZL8WFZUKLHI1gN_1xTjFAtpHlG_0kmrbuNQ
+  
+  
+{
+  "name": "Project 1 Updated",
+  "description": "This is an updated project"
+}
+
+### DELETE PROJECT
+DELETE http://localhost:3001/api/project/6936eeeaea843b3656498464
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzZlZTIxZWE4NDNiMzY1NjQ5ODQ1NCIsImlhdCI6MTc2NTIwNzYxMiwiZXhwIjoxNzY1MjA4NTEyfQ.LfnTQ0pLZL8WFZUKLHI1gN_1xTjFAtpHlG_0kmrbuNQ
+
+### GET ALL PROJECTS
+GET http://localhost:3001/api/project
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzZlZTIxZWE4NDNiMzY1NjQ5ODQ1NCIsImlhdCI6MTc2NTIwNzYxMiwiZXhwIjoxNzY1MjA4NTEyfQ.LfnTQ0pLZL8WFZUKLHI1gN_1xTjFAtpHlG_0kmrbuNQ
+  

@@ -92,3 +92,46 @@ export const logout = async (req, res) => {
     return errorResponse(res, "Lỗi hệ thống", 500, err.message);
   }
 };
+
+export const deleteUser = async (req, res) => {
+  try {
+    await authService.deleteUser(req.user.id);
+    if (req.user) {
+      await authService.logoutUser(req.user.id);
+    }
+    res.clearCookie("refreshToken");
+    return successResponse(res, "Xóa người dùng thành công");
+  } catch (err) {
+    return errorResponse(res, "Lỗi hệ thống", 500, err.message);
+  }
+};
+
+export const updateUser = async (req, res) => {
+  try {
+    const targetId = req.params.id;   // ID trong URL
+    const actingId = req.user.id;     // ID trong token
+
+    const result = await authService.updateUser(
+      targetId,
+      req.body,
+      actingId,
+      req.user.role
+    );
+
+    return successResponse(res, "Cập nhật thông tin thành công", result);
+  } catch (err) {
+    if (err.message === "NOT_AUTHORIZATION") {
+      return errorResponse(res, "Bạn không có quyền cập nhật thông tin này", 403);
+    }
+    return errorResponse(res, "Lỗi hệ thống", 500, err.message);
+  }
+};
+
+export const getUsers = async (req, res) => {
+  try {
+    const result = await authService.getUsers(req.user.role);
+    return successResponse(res, "Lấy danh sách người dùng thành công", result);
+  } catch (err) {
+    return errorResponse(res, "Lỗi hệ thống", 500, err.message);
+  }
+};
