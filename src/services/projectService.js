@@ -13,7 +13,7 @@ export const updateProject = async (projectId, data, userId, userRole) => {
   // User không phải owner + không phải admin
   if (project.owner_id.toString() !== userId && userRole !== "admin") {
     throw new Error("FORBIDDEN");
-  }
+  } 
 
   return await Project.findByIdAndUpdate(projectId, data, { new: true });
 };

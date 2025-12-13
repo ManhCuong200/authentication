@@ -26,11 +26,9 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-// 🔥 REGISTER ROUTES BEFORE SWAGGER
 app.use("/api/auth", authRoutes);
 app.use("/api/project", projectRoutes);
 
-// 🔥 THEN LOAD SWAGGER LAST
 swaggerDocs(app);
 
 const PORT = process.env.PORT || 3000;

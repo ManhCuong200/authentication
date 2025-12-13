@@ -3,13 +3,16 @@ import { successResponse, errorResponse } from '../utils/response.js';
 
 export const create = async (req, res) => {
   try {
-    const newProject = await projectService.createProject(req.body, req.user.id);
-    return successResponse(res, 'Tạo dự án thành công', newProject, 201);
+    // req.body cần có: name, description, owner (là ID của user)
+    const newProject = await projectService.createProject(
+      req.body,
+      req.user.id
+    );
+    return successResponse(res, "Tạo dự án thành công", newProject, 201);
   } catch (err) {
-    return errorResponse(res, err.message, 500);
+    return errorResponse(res, "Lỗi tạo dự án", 500, err.message);
   }
 };
-
 export const update = async (req, res) => {
   try {
     const updated = await projectService.updateProject(
